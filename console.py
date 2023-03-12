@@ -7,7 +7,7 @@ Using static web pages
 import cmd
 
 
-class AirBNBCommand(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     """Command processor base class"""
     prompt = '(hbnb) '
 
@@ -25,4 +25,4 @@ class AirBNBCommand(cmd.Cmd):
 
 
 if __name__ == "__main__":
-    AirBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
