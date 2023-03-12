@@ -6,6 +6,7 @@ Using static web pages
 
 import cmd
 
+
 class AirBNBCommand(cmd.Cmd):
     """Command processor base class"""
     prompt = '(hbnb) '
