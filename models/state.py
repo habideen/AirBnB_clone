@@ -6,7 +6,6 @@ from models.base_model import BaseModel
 
 
 class State(BaseModel):
-   """ class for the State object """
+    """ class for the State object """
 
-   name = ""
-
+    name = ""
