@@ -12,6 +12,7 @@ from models.place import Place
 from models.review import Review
 import os
 
+
 class FileStorage():
     """ class for file storage """
 
@@ -21,8 +22,8 @@ class FileStorage():
     def all(self):
         """ return the __object dictionary """
 
-        return  self.__objects
-    
+        return self.__objects
+
     def new(self, obj):
         """ new update on the __objects every time an object created """
         ob_key = type(obj).__name__ + "." + obj.id
