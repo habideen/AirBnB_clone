@@ -11,15 +11,6 @@ from models.place import Place
 from models.review import Review
 
 
-valid_classes = {'BaseModel': BaseModel,
-                 'User': User,
-                 'State': State,
-                 'City': City,
-                 'Amenity': Amenity,
-                 'Place': Place,
-                 'Review': Review}
-
-
 class FileStorage():
     """ this is the file storage class"""
 
@@ -28,10 +19,10 @@ class FileStorage():
 
     def all(self):
         """returns the dictionary __objects."""
-        return(self.__objects)
+        return (self.__objects)
 
     def new(self, obj):
-        """update objects dictionary everytime 
+        """ update objects dictionary everytime
         a new object is created"""
         obj_key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[obj_key] = obj
