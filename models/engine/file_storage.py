@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-""" module containing the FileStorage class """
-
-
+""" module  containining the FileStorage class """
 import json
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -10,35 +9,50 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-import os
+
+
+valid_classes = {'BaseModel': BaseModel,
+                 'User': User,
+                 'State': State,
+                 'City': City,
+                 'Amenity': Amenity,
+                 'Place': Place,
+                 'Review': Review}
 
 
 class FileStorage():
-    """ class for file storage """
+    """ this is the file storage class"""
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """ return the __object dictionary """
-
-        return self.__objects
+        """returns the dictionary __objects."""
+        return(self.__objects)
 
     def new(self, obj):
-        """ new update on the __objects every time an object created """
-        ob_key = type(obj).__name__ + "." + obj.id
-        self.__objects[ob_key] = obj
+        """update objects dictionary everytime 
+        a new object is created"""
+        obj_key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[obj_key] = obj
 
     def save(self):
-        """ serialization """
-        with open(self.__file_path, "w", encoding="utf-8") as jf:
-            d = {k: v.to_dict() for k, v in self.__objects.items()}
-            json.dump(d, jf)
+        """method that serialize object files in to json file"""
+        with open(self.__file_path, 'w', encoding="utf-8") as fp:
+            jdict_ = {}
+            for k, v in self.__objects.items():
+                dict_ = self.__objects[k].to_dict()
+                jdict_[k] = dict_
+            fp.write(json.dumps(jdict_))
 
     def reload(self):
-        """ deserialization """
+        """a method that deserialize JSON files"""
+        dict_ = {}
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, "r", encoding="utf-8") as jf:
-                for key, obj in json.loads(jf.read()).items():
-                    obj = eval(obj['__class__'])(**obj)
-                    self.__objects[key] = obj
+            with open(self.__file_path, 'r', encoding="utf-8") as fp:
+                str_ = fp.read()
+                dict_ = json.loads(str_)
+                for k, v in dict_.items():
+                    class_ = v['__class__']
+                    create_class = valid_classes[class_]
+                    self.__objects[k] = create_class(**v)

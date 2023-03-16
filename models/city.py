@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-""" this moudle containes the city class """
+""" module containing the City Class """
 
 
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """ this is the city class """
+    """Class for  City objects/models"""
 
     state_id = ""
     name = ""

@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-""" module containing the user class """
-
-
+""" Module containing the User Class """
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """ user class """
+    """Class for a user object"""
+
     email = ""
     password = ""
     first_name = ""

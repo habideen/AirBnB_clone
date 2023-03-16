@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-""" this modlue contain the place class """
+"""module to create Place class"""
 
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """ this is the palce class """
+    """Class for  place objects"""
 
     city_id = ""
     user_id = ""

@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-""" this module contain the sate class """
-
+"""module containing a User class"""
 
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """ class for the State object """
+    """Class for state objects"""
 
     name = ""

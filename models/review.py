@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-""" this module containes the review class """
-
+"""module containing a Review class"""
 
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """ this is the reveiw class """
+    """Class containing  review objects"""
 
     place_id = ""
     user_id = ""

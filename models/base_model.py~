@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-module that contain the BaseModel Class
+This module contains the BaseModel Class
 """
 import uuid
 import copy
@@ -9,18 +9,19 @@ import models
 
 
 class BaseModel():
-    """ this is BaseModel Class"""
+    """Class representing the BaseModel Class"""
 
     valid_attributes = {
-        "User": {'first_name': str,
-                 'last_name': str,
-                 'email': str,
-                 'password': str,
+        "User": {
+            'first_name': str,
+            'last_name': str,
+            'email': str,
+            'password': str,
         }
     }
 
     def __init__(self, *args, **kwargs):
-        # initialization
+        # create uuid when instance is initialized and convert to string
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -38,7 +39,7 @@ class BaseModel():
             models.storage.new(self)
 
     def __str__(self):
-        """return  a string representation of an the objec"""
+        """Method that returns a string representation of an instance"""
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id,
                                       self.__dict__))
@@ -52,4 +53,3 @@ class BaseModel():
         dict_['updated_at'] = dict_['updated_at'].isoformat()
         dict_['created_at'] = dict_['created_at'].isoformat()
         dict_['__class__'] = self.__class__.__name__
-        return (dict_)
