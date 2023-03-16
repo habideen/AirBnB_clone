@@ -11,14 +11,6 @@ import models
 class BaseModel():
     """ this is BaseModel Class"""
 
-    valid_attributes = {
-        "User": {'first_name': str,
-                 'last_name': str,
-                 'email': str,
-                 'password': str,
-        }
-    }
-
     def __init__(self, *args, **kwargs):
         # initialization
         if len(kwargs) != 0:
