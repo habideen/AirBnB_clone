@@ -21,6 +21,57 @@ class HBNBCommand(cmd.Cmd):
     """Command processor base class"""
     prompt = '(hbnb) '
 
+    def default(self, line):
+        """ Method called on an input line when
+        the command prefix is not recognized """
+        actions = {
+            r'^all\(.*\)$': self.do_all,
+            r'^count\(.*\)$': self.do_count,
+            r'^show\(.*\)$': self.do_show,
+            r'^destroy\(.*\)$': self.do_destroy,
+            r'^update\(.*\)$': self.do_update
+        }
+
+        args = line.split('.')
+        if len(args) == 2:
+            for action in actions.keys():
+                match = re.search(pattern=action, string=args[1])
+                if match:
+                    text_args = match.group()
+
+                    # r'^update\(.*, \{.*\}\)$': self.__update_from_dict
+                    pattern = r'\(.*, \{.*\}\)$'
+                    match = re.search(pattern=pattern, string=text_args)
+                    if match:
+                        txt_args = str(match.group())
+                        params = eval("[" + txt_args[1:-1] + "]")
+                        dct = params[-1]
+                        dct['id'] = params[0]
+                        dct['class'] = args[0]
+                        return self.__update_from_dict(dct)
+                    else:
+                        pattern = r'\(.*\)$'
+                        match = re.search(pattern=pattern, string=text_args)
+                        if match:
+                            txt_args = str(match.group())
+                            txt_args = txt_args[1:-1].replace(',', ' ')
+                            txt_args = "{} {}".format(args[0], txt_args)
+                            return actions[action](txt_args)
+
+        return super().default(line)
+
+    def do_count(self, line):
+        """
+        Retrieves the number of instances of a class
+        """
+        args = line.strip().split('.')
+        count = 0
+
+        for obj in storage.all().values():
+            if args[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
+        
     def do_EOF(self, line):
         """End of Line to exit program"""
         return True
